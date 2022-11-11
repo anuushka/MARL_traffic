@@ -44,7 +44,7 @@ if __name__ == '__main__':
     alpha = 0.1
     gamma = 0.995
     decay = 1
-    runs = 100 #100000
+    runs = 200 #100000
     simulation_time = 3600 # seconds 7200
     eps_start=1.0
     eps_end=0.001
@@ -110,6 +110,9 @@ if __name__ == '__main__':
         if score >= 0.01:
             print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(
                 run-100, score))
+            f = open("score.txt", "w")
+            f.write(score)
+            f.close()
             torch.save(dqn_agents[agent].qnetwork_local.state_dict(), 'checkpoint_'+agent+'.pth')
-        env.unwrapped.env.save_csv('outputs/1000/test1', run) #TODO check checkpoints
+        env.unwrapped.env.save_csv('outputs/dqntrain/test1', run) 
         env.close()
